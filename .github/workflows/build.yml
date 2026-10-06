@@ -14,8 +14,11 @@ jobs:
           gradle-version: '8.7'
       - name: Unpack project
         run: unzip -q ModMenu_project.zip
-      - name: Get Dobby
-        run: git clone --depth 1 https://github.com/jmpews/Dobby ModMenu/app/src/main/cpp/Dobby
+      - name: Get Dobby Prebuilt
+        run: |
+          mkdir -p ModMenu/app/src/main/cpp/Dobby
+          curl -L -o dobby.zip https://github.com
+          unzip -q dobby.zip -d ModMenu/app/src/main/cpp/Dobby
       - name: Build
         working-directory: ModMenu
         run: |
@@ -25,3 +28,4 @@ jobs:
         with:
           name: app-debug
           path: ModMenu/app/build/outputs/apk/debug/app-debug.apk
+          

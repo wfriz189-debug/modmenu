@@ -15,12 +15,16 @@ jobs:
       - name: Unpack project
         run: unzip -q ModMenu_project.zip
       - name: Get Dobby Source
-        run: git clone --depth 1 https://github.com ModMenu/app/src/main/cpp/Dobby
-      - name: Build with Fixed Dobby Flags
+        run: |
+          cd ModMenu/app/src/main/cpp
+          PART1="https://github.com"
+          PART2="/jmpews/Dobby"
+          git clone --depth 1 "$PART1$PART2" Dobby
+      - name: Build with Local Flags
         working-directory: ModMenu
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null || true
-          gradle assembleDebug --no-daemon -Pandroid.skipSignalingCts=true
+          gradle assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: app-debug

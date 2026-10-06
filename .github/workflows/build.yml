@@ -14,12 +14,7 @@ jobs:
           gradle-version: '8.7'
       - name: Unpack project
         run: unzip -q ModMenu_project.zip
-      - name: Get Dobby Prebuilt
-        run: |
-          mkdir -p ModMenu/app/src/main/cpp/Dobby
-          curl -L -o dobby.zip https://github.com
-          unzip -q dobby.zip -d ModMenu/app/src/main/cpp/Dobby
-      - name: Build
+      - name: Build with local NDK
         working-directory: ModMenu
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null || true
